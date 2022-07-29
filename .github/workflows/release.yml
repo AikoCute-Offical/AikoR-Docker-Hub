@@ -15,6 +15,10 @@ jobs:
       - name: Checkout codebase
         uses: actions/checkout@v3
 
+      - name: Install Packege
+        run:
+          apt install wget
+
       - name: Create Environment
         run: |
           mkdir Build-AikoR
