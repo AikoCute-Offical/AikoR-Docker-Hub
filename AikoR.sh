@@ -127,14 +127,14 @@ install_aikor() {
     if [[ ! -f /etc/AikoR/custom_outbound.json ]]; then
         cp custom_outbound.json /etc/AikoR/
     fi
-    curl -o /usr/bin/AikoR -Ls https://raw.githubusercontent.com/AikoCute-Offical/AikoR-install/master/AikoR.sh
+    curl -o /usr/bin/AikoR -Ls https://raw.githubusercontent.com/AikoCute-Offical/AikoR-DockerInstall/master/AikoR.sh
     chmod +x /usr/bin/AikoR
     ln -s /usr/bin/AikoR /usr/bin/aikor # compatible lowercase
     chmod +x /usr/bin/aikor
 }
 
 update_shell(){
-    wget -O /usr/bin/AikoR -N --no-check-certificate https://raw.githubusercontent.com/AikoCute-Offical/AikoR-install/master/AikoR.sh
+    wget -O /usr/bin/AikoR -N --no-check-certificate https://raw.githubusercontent.com/AikoCute-Offical/AikoR-DockerInstall/master/AikoR.sh
     if [[ $? != 0 ]]; then
         echo ""
         echo -e "${red}Script failed to download, please check if machine can connect to Github${plain}"
