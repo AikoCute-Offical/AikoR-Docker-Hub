@@ -78,7 +78,6 @@ install_aikor() {
         fi
         echo -e "The latest version of AikoR has been detected：${last_version}，Start the installation"
         wget -N --no-check-certificate -O /usr/local/AikoR/AikoR-linux.zip https://github.com/AikoCute-Offical/AikoR-DockerInstall/releases/download/${last_version}/AikoR-DockerInstall.zip
-        if [[ $? -ne 0 ]]; then
             echo -e "${red}AikoR download failed, make sure your server can download Github files${plain}"
             exit 1
         fi
@@ -99,17 +98,12 @@ install_aikor() {
     mkdir /etc/AikoR/ -p
     rm /etc/systemd/system/AikoR.service -f
     echo -e "${green}AikoR ${last_version}${plain} The installation is complete, it is already set to start automatically"
-    cp geoip.dat /etc/AikoR/
-    cp geosite.dat /etc/AikoR/ 
 
     if [[ ! -f /etc/AikoR/aiko.yml ]]; then
         cp aiko.yml /etc/AikoR/
         echo -e ""
         echo -e "New installation, please refer to previous tutorial：https://github.com/AikoCute-Offical/AikoR，Configure required content"
     else
-        systemctl start AikoR
-        sleep 2
-        check_status
         echo -e ""
         if [[ $? == 0 ]]; then
             echo -e "${green}AikoR reboot successfully${plain}"
@@ -127,6 +121,7 @@ install_aikor() {
     if [[ ! -f /etc/AikoR/custom_outbound.json ]]; then
         cp custom_outbound.json /etc/AikoR/
     fi
+    
     curl -o /usr/bin/AikoR -Ls https://raw.githubusercontent.com/AikoCute-Offical/AikoR-DockerInstall/master/AikoR.sh
     chmod +x /usr/bin/AikoR
     ln -s /usr/bin/AikoR /usr/bin/aikor # compatible lowercase
@@ -199,6 +194,7 @@ update_aikor(){
 install(){
     find_docker
     install_docker
+    install_docker_compose
     install_aikor
     configuration
     update_aikor
