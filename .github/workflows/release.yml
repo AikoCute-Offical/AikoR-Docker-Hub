@@ -19,7 +19,17 @@ jobs:
         run: |
           mkdir Build-AikoR
           cd Build-AikoR
-          git clone https://github.com/AikoCute-Offical/AikoR-DockerInstall.git
+          mkdir AikoR
+          wget https://raw.githubusercontent.com/AikoCute-Offical/AikoR-DockerInstall/release/AikoR/aiko.yml.example -O /AikoR/aiko.yml
+          wget https://raw.githubusercontent.com/AikoCute-Offical/AikoR-DockerInstall/release/AikoR/custom_inbound.json -O /AikoR/custom_inbound.json
+          wget https://raw.githubusercontent.com/AikoCute-Offical/AikoR-DockerInstall/release/AikoR/custom_outbound.json -O /AikoR/custom_outbound.json
+          wget https://raw.githubusercontent.com/AikoCute-Offical/AikoR-DockerInstall/release/AikoR/dns.json -O /AikoR/dns.json
+          wget https://github.com/AikoCute-Offical/AikoR-DockerInstall/raw/release/AikoR/geoip.dat -O /AikoR/geoip.dat
+          wget https://raw.githubusercontent.com/AikoCute-Offical/AikoR-DockerInstall/release/AikoR/geosite.dat -O /AikoR/geosite.dat
+          wget https://raw.githubusercontent.com/AikoCute-Offical/AikoR-DockerInstall/release/AikoR/route.json -O /AikoR/route.json
+          wget https://raw.githubusercontent.com/AikoCute-Offical/AikoR-DockerInstall/release/AikoR/rulelist -O /AikoR/AikoBlock
+          wget https://raw.githubusercontent.com/AikoCute-Offical/AikoR-DockerInstall/release/docker-compose.yml -O /docker-compose.yml
+
 
       - name: Create ZIP archive
         shell: bash
