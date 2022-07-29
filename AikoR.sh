@@ -199,7 +199,7 @@ update_aikor(){
 install(){
     find_docker
     install_docker
-    install_docker
+    install_aikor
     configuration
     update_aikor
 }
