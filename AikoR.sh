@@ -6,7 +6,7 @@ yellow='\033[0;33m'
 plain='\033[0m'
 
 # check root
-[[ $EUID -ne 0 ]] && echo -e "${red}Lỗi: ${plain} Bắt đầu lại với quyền root！\n" && exit 1
+[[ $EUID -ne 0 ]] && echo -e "${red}Error: ${plain} Vui lòng sử dụng quyền Root\n" && exit 1
 
 if [[ -f /etc/redhat-release ]]; then
     release="centos"
@@ -35,20 +35,20 @@ install() {
 	cd /usr/local/AikoR/
     
     if  [ $# == 0 ] ;then
-        last_version=$(curl -Ls "https://api.github.com/repos/AikoCute-Offical/AikoR/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+        last_version=$(curl -Ls "https://api.github.com/repos/AikoCute-Offical/AikoR-DockerInstall/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
         if [[ ! -n "$last_version" ]]; then
             echo -e "${red}AikoR version detection failed, maybe GIthub API limit exceeded, please try again later or specify AikoR version setting manually${plain}"
             exit 1
         fi
         echo -e "The latest version of AikoR has been detected：${last_version}，Start the installation"
-        wget -N --no-check-certificate -O /usr/local/AikoR/AikoR-linux.zip https://github.com/AikoCute-Offical/AikoR/releases/download/${last_version}/AikoR-linux-${arch}.zip
+        wget -N --no-check-certificate -O /usr/local/AikoR/AikoR-linux.zip https://github.com/AikoCute-Offical/AikoR-DockerInstall/releases/download/${last_version}/AikoR-DockerInstall.zip
         if [[ $? -ne 0 ]]; then
             echo -e "${red}AikoR download failed, make sure your server can download Github files${plain}"
             exit 1
         fi
     else
         last_version=$1
-        url="https://github.com/AikoCute-Offical/AikoR/releases/download/${last_version}/AikoR-linux-${arch}.zip"
+        url="https://github.com/AikoCute-Offical/AikoR-DockerInstall/releases/download/${last_version}/AikoR-DockerInstall.zip"
         echo -e "AikoR starts up v$1"
         wget -N --no-check-certificate -O /usr/local/AikoR/AikoR-linux.zip ${url}
         if [[ $? -ne 0 ]]; then
