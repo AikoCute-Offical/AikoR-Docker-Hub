@@ -5,7 +5,6 @@ on:
   push:
     branches:
     - main
-    - release/*
   release:
     types: [published]
 
@@ -30,11 +29,6 @@ jobs:
           zip -9vr ../AikoR-DockerInstall.zip .
           popd || exit 1
           FILE=./AikoR-DockerInstall.zip
-          DGST=$FILE.dgst
-          for METHOD in {"md5","sha1","sha256","sha512"}
-          do
-            openssl dgst -$METHOD $FILE | sed 's/([^)]*)//g' >>$DGST
-          done
 
       - name: Change the name
         run: |
