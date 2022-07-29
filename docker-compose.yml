@@ -3,6 +3,6 @@ services:
   xrayr: 
     image: aikocute/aikor:latest
     volumes:
-      - ./config:/etc/AikoR/ #AikoCute
+      - ./AikoR:/etc/AikoR/ #AikoCute
     restart: always
     network_mode: host
