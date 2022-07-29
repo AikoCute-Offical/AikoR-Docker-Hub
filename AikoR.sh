@@ -61,7 +61,8 @@ curl -L "https://github.com/docker/compose/releases/download/1.26.1/docker-compo
 chmod +x /usr/local/bin/docker-compose
 }
 
-install() {
+
+install_aikor() {
     if [[ -e /usr/local/AikoR/ ]]; then
         rm /usr/local/AikoR/ -rf
     fi
@@ -144,6 +145,83 @@ update_shell(){
     fi
 }
 
+configuration(){
+    echo -e "AikoR Configuration"
+    echo -e "1. Quit"
+    echo -e "2. Configure AikoR"
+    echo -e "3. Editing some other files in AikoR"
+
+    read -p "Please enter your choice [1-3]: " config_num
+    if [[ "$config_num" == "1" ]]; then
+        exit 0
+    elif [[ "$config_num" == "2" ]]; then
+        nano /etc/AikoR/aiko.yml
+    echo -e "${green}AikoR configuration completed${plain}" 
+    elif [[ "$config_num" == "3" ]]; then
+        echo -e "1. Configure DNS"
+        echo -e "2. Configure custom_inbound.json"
+        echo -e "3. Configure custom_outbound.json"
+        echo -e "4. Configure route.json"
+        read -p "Please enter your choice [1-4]: " configv1_num
+
+        if [[ "$configv1_num" == "1" ]]; then
+            nano /etc/AikoR/dns.json
+            config
+        elif [[ "$configv1_num" == "2" ]]; then
+            nano /etc/AikoR/custom_inbound.json
+            config
+        elif [[ "$configv1_num" == "3" ]]; then
+            nano /etc/AikoR/custom_outbound.json
+            config
+        elif [[ "$configv1_num" == "4" ]]; then
+            nano /etc/AikoR/route.json
+            config
+        else
+            echo -e "${red}Please enter the correct number${plain}"
+            config
+        fi
+    else
+        echo -e "${red}Please enter the correct number${plain}"
+        config
+    fi   
+}
+
+find_docker(){
+    cd /etc/AikoR
+}
+
+update_aikor(){
+    find_docker
+    docker-compose pull
+    docker-compose up -d
+}
+
+install(){
+    find_docker
+    install_docker
+    install_docker
+    configuration
+    update_aikor
+}
+
+uninstall_aikor(){
+    find_docker
+    docker-compose down
+    rm /usr/bin/AikoR -f
+    rm /etc/XrayR -f
+}
+
+check_log(){
+    find_docker
+    docker-compose logs
+}
+
+restart_aikor(){
+    find_docker
+    docker-compose down
+    docker-compose up -d
+}
+
 show_usage() {
     echo -e ""
     echo " How to use the AikoR . management script " 
@@ -157,7 +235,7 @@ show_menu() {
     echo -e "
   ${green}AikoR Các tập lệnh quản lý phụ trợ，${plain}${red}không hoạt động với docker${plain}
 --- https://github.com/AikoCute-Offical/AikoR ---
-  ${green}0.${plain} Setting Config
+  ${green}0.${plain} Quit
 ————————————————
   ${green}1.${plain} Install AikoR
   ${green}2.${plain} Update AikoR
@@ -165,51 +243,31 @@ show_menu() {
 ————————————————
   ${green}4.${plain} Launch AikoR
   ${green}5.${plain} Stop AikoR
-  ${green}6.${plain} Khởi động lại AikoR
-  ${green}7.${plain} View AikoR status
-  ${green}8.${plain} View AikoR logs
-————————————————
-  ${green}9.${plain} Set AikoR to start automatically
- ${green}10.${plain} Canceling AikoR autostart
-————————————————
- ${green}11.${plain} Install BBR
- ${green}12.${plain} View AikoR version
- ${green}13.${plain} Update AikoR shell
+  ${green}6.${plain} Restart AikoR
+  ${green}7.${plain} View AikoR logs
  "
  # Cập nhật tiếp theo có thể được thêm vào chuỗi trên
     show_status
     echo && read -p "Please enter an option [0-13]: " num
 
     case "${num}" in
-        0) config
+        0) exit 0
         ;;
-        1) check_uninstall && install
+        1) install
         ;;
-        2) check_install && update
+        2) update_aikor
         ;;
-        3) check_install && uninstall
+        3) uninstall_aikor
         ;;
-        4) check_install && start
+        4) update_aikor
         ;;
-        5) check_install && stop
+        5) docker-compose down
         ;;
-        6) check_install && restart
+        6) restart_aikor
         ;;
-        7) check_install && status
+        7) check_log
         ;;
-        8) check_install && show_log
-        ;;
-        9) check_install && enable
-        ;;
-        10) check_install && disable
-        ;;
-        11) install_bbr
-        ;;
-        12) check_install && show_AikoR_version
-        ;;
-        13) update_shell
-        ;;
-        *) echo -e "${red}Please enter the correct number [0-13]${plain}"
+        *) echo -e "${red}Please enter the correct number [0-7]${plain}"
         ;;
     esac
 }
@@ -217,29 +275,21 @@ show_menu() {
 
 if [[ $# > 0 ]]; then
     case $1 in
-        "start") check_install 0 && start 0
+        "start") update_aikor
         ;;
-        "stop") check_install 0 && stop 0
+        "stop") docker-compose down
         ;;
-        "restart") check_install 0 && restart 0
+        "restart") restart_aikor
         ;;
-        "status") check_install 0 && status 0
+        "log") check_log
         ;;
-        "enable") check_install 0 && enable 0
+        "update") update_aikor
         ;;
-        "disable") check_install 0 && disable 0
+        "config") configuration
         ;;
-        "log") check_install 0 && show_log 0
+        "install") install 0
         ;;
-        "update") check_install 0 && update 0 $2
-        ;;
-        "config") config $*
-        ;;
-        "install") check_uninstall 0 && install 0
-        ;;
-        "uninstall") check_install 0 && uninstall 0
-        ;;
-        "version") check_install 0 && show_AikoR_version 0
+        "uninstall") uninstall_aikor
         ;;
         "update_shell") update_shell
         ;;
