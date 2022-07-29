@@ -22,6 +22,7 @@ jobs:
       
       - name: Rename Config
         run: |
+          cd Build-AikoR
           mv aiko.yml.example aiko.yml
 
       - name: Create ZIP archive
