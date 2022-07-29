@@ -24,7 +24,7 @@ jobs:
           cp ${GITHUB_WORKSPACE}/AikoR/custom_inbound.json ./build_assets/AikoR/custom_inbound.json
           cp ${GITHUB_WORKSPACE}/AikoR/rulelist ./build_assets/AikoR/AikoBlock
           cp ${GITHUB_WORKSPACE}/AikoR/aiko.yml.example ./build_assets/AikoR/aiko.yml
-          cp ${GITHUB_WORKSPACE}/docker-compose.yml ./build_assets/}/docker-compose.yml
+          cp ${GITHUB_WORKSPACE}/docker-compose.yml ./build_assets/docker-compose.yml
       
       - name: Create ZIP archive
         shell: bash
