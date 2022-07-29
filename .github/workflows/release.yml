@@ -19,11 +19,6 @@ jobs:
           mkdir Build-AikoR
           cd Build-AikoR
           git clone https://github.com/AikoCute-Offical/AikoR-DockerInstall.git
-      
-      - name: Rename Config
-        run: |
-          cd Build-AikoR
-          mv aiko.yml.example aiko.yml
 
       - name: Create ZIP archive
         shell: bash
