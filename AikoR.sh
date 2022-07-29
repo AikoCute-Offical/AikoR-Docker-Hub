@@ -247,7 +247,6 @@ show_menu() {
   ${green}7.${plain} View AikoR logs
  "
  # Cập nhật tiếp theo có thể được thêm vào chuỗi trên
-    show_status
     echo && read -p "Please enter an option [0-13]: " num
 
     case "${num}" in
