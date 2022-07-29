@@ -20,6 +20,10 @@ jobs:
           cd Build-AikoR
           git clone https://github.com/AikoCute-Offical/AikoR-DockerInstall.git
       
+      - name: Rename Config
+        run: |
+          mv aiko.yml.example aiko.yml
+
       - name: Create ZIP archive
         shell: bash
         run: |
