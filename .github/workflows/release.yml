@@ -10,19 +10,25 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout codebase
+        uses: actions/checkout@v3
+
       - name: Create Environment
         run: |
-          mkdir -p build_assets
-
+          mkdir Build-AikoR
+          cd Build-AikoR
+          git clone https://github.com/AikoCute-Offical/AikoR-DockerInstall.git
+          
       - name: Prepare to release
         run: |
-          cp ${GITHUB_WORKSPACE}/AikoR/dns.json ./build_assets/AikoR/dns.json
-          cp ${GITHUB_WORKSPACE}/AikoR/route.json ./build_assets/AikoR/route.json
-          cp ${GITHUB_WORKSPACE}/AikoR/custom_outbound.json ./build_assets/AikoR/custom_outbound.json
-          cp ${GITHUB_WORKSPACE}/AikoR/custom_inbound.json ./build_assets/AikoR/custom_inbound.json
-          cp ${GITHUB_WORKSPACE}/AikoR/rulelist ./build_assets/AikoR/AikoBlock
-          cp ${GITHUB_WORKSPACE}/AikoR/aiko.yml.example ./build_assets/AikoR/aiko.yml
-          cp ${GITHUB_WORKSPACE}/docker-compose.yml ./build_assets/docker-compose.yml
+          mkdir build_assets
+          cp AikoR/dns.json ./build_assets/AikoR/dns.json
+          cp AikoR/route.json ./build_assets/AikoR/route.json
+          cp AikoR/custom_outbound.json ./build_assets/AikoR/custom_outbound.json
+          cp AikoR/custom_inbound.json ./build_assets/AikoR/custom_inbound.json
+          cp AikoR/rulelist ./build_assets/AikoR/AikoBlock
+          cp AikoR/aiko.yml.example ./build_assets/AikoR/aiko.yml
+          cp docker-compose.yml ./build_assets/docker-compose.yml
       
       - name: Create ZIP archive
         shell: bash
