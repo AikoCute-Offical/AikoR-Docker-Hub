@@ -23,7 +23,7 @@ jobs:
       - name: Create ZIP archive
         shell: bash
         run: |
-          pushd build_assets || exit 1
+          pushd Build-AikoR || exit 1
           touch -mt $(date +%Y01010000) *
           zip -9vr ../AikoR-DockerInstall.zip .
           popd || exit 1
