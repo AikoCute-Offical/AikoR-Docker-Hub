@@ -19,17 +19,6 @@ jobs:
           mkdir Build-AikoR
           cd Build-AikoR
           git clone https://github.com/AikoCute-Offical/AikoR-DockerInstall.git
-          
-      - name: Prepare to release
-        run: |
-          mkdir build_assets
-          cp AikoR/dns.json ./build_assets/AikoR/dns.json
-          cp AikoR/route.json ./build_assets/AikoR/route.json
-          cp AikoR/custom_outbound.json ./build_assets/AikoR/custom_outbound.json
-          cp AikoR/custom_inbound.json ./build_assets/AikoR/custom_inbound.json
-          cp AikoR/rulelist ./build_assets/AikoR/AikoBlock
-          cp AikoR/aiko.yml.example ./build_assets/AikoR/aiko.yml
-          cp docker-compose.yml ./build_assets/docker-compose.yml
       
       - name: Create ZIP archive
         shell: bash
@@ -47,7 +36,7 @@ jobs:
 
       - name: Change the name
         run: |
-          mv build_assets AikoR-DockerInstall
+          mv Build-AikoR AikoR-DockerInstall
 
       - name: Upload files to Artifacts
         uses: actions/upload-artifact@v3
