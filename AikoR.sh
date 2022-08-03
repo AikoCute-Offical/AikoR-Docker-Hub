@@ -238,10 +238,12 @@ show_menu() {
   ${green}2.${plain} Update AikoR
   ${green}3.${plain} Uninstall AikoR
 ————————————————
-  ${green}4.${plain} Launch AikoR
-  ${green}5.${plain} Stop AikoR
-  ${green}6.${plain} Restart AikoR
-  ${green}7.${plain} View AikoR logs
+  ${green}4.${plain} Configuration
+  ${green}5.${plain} Launch AikoR
+  ${green}6.${plain} Stop AikoR
+  ${green}7.${plain} Restart AikoR
+  ${green}8.${plain} View AikoR logs
+  ${green}9.${plain} Update Shell
  "
  # Cập nhật tiếp theo có thể được thêm vào chuỗi trên
     echo && read -p "Please enter an option [0-7]: " num
@@ -255,15 +257,19 @@ show_menu() {
         ;;
         3) uninstall_aikor
         ;;
-        4) update_aikor
+        4) configuration
         ;;
-        5) docker-compose down
+        5) update_aikor
         ;;
-        6) restart_aikor
+        6) docker-compose down
         ;;
-        7) check_log
+        7) restart_aikor
         ;;
-        *) echo -e "${red}Please enter the correct number [0-7]${plain}"
+        8) check_log
+        ;;
+        9) update_shell
+        ;;
+        *) echo -e "${red}Please enter the correct number [0-9]${plain}"
         ;;
     esac
 }
