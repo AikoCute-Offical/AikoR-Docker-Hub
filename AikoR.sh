@@ -97,11 +97,11 @@ install_aikor() {
     rm AikoR-linux.zip -f
     chmod +x AikoR
     mkdir /etc/AikoR/ -p
-    rm /etc/systemd/system/AikoR.service -f
+    mkdir /etc/AikoR/AikoR -p
     echo -e "${green}AikoR ${last_version}${plain} The installation is complete, it is already set to start automatically"
 
-    if [[ ! -f /etc/AikoR/aiko.yml ]]; then
-        cp aiko.yml /etc/AikoR/
+    if [[ ! -f /etc/AikoR/AikoR/aiko.yml ]]; then
+        cp aiko.yml /etc/AikoR/AikoR
         echo -e ""
         echo -e "New installation, please refer to previous tutorial：https://github.com/AikoCute-Offical/AikoR，Configure required content"
     else
@@ -114,14 +114,21 @@ install_aikor() {
     fi
 
     if [[ ! -f /etc/AikoR/dns.json ]]; then
-        cp dns.json /etc/AikoR/
+        cp AikoR/dns.json /etc/AikoR/AikoR
     fi
     if [[ ! -f /etc/AikoR/route.json ]]; then
-        cp route.json /etc/AikoR/
+        cp AikoR/route.json /etc/AikoR/AikoR
     fi
     if [[ ! -f /etc/AikoR/custom_outbound.json ]]; then
-        cp custom_outbound.json /etc/AikoR/
+        cp AikoR/custom_outbound.json /etc/AikoR/AikoR
     fi
+    if [[ ! -f /etc/AikoR/AikoR/rulelist ]]; then
+        cp AikoR/rulelist /etc/AikoR/AikoR
+    fi
+    if [[ ! -f /etc/AikoR/docker-compose.yml ]]; then
+        cp docker-compose.yml /etc/AikoR
+    fi
+
     
     curl -o /usr/bin/AikoR -Ls https://raw.githubusercontent.com/AikoCute-Offical/AikoR-DockerInstall/master/AikoR.sh
     chmod +x /usr/bin/AikoR
@@ -158,23 +165,27 @@ configuration(){
         echo -e "2. Configure custom_inbound.json"
         echo -e "3. Configure custom_outbound.json"
         echo -e "4. Configure route.json"
-        read -p "Please enter your choice [1-4]: " configv1_num
+        echo -e "5. Configure rulelist"
+        read -p "Please enter your choice [1-5]: " configv1_num
 
         if [[ "$configv1_num" == "1" ]]; then
-            nano /etc/AikoR/dns.json
+            nano /etc/AikoR/AikoR/dns.json
             config
         elif [[ "$configv1_num" == "2" ]]; then
-            nano /etc/AikoR/custom_inbound.json
+            nano /etc/AikoR/AikoR/custom_inbound.json
             config
         elif [[ "$configv1_num" == "3" ]]; then
-            nano /etc/AikoR/custom_outbound.json
+            nano /etc/AikoR/AikoR/custom_outbound.json
             config
         elif [[ "$configv1_num" == "4" ]]; then
-            nano /etc/AikoR/route.json
+            nano /etc/AikoR/AikoR/route.json
+            config
+        elif [[ "$configv1_num" == "5" ]]; then
+            nano /etc/AikoR/AikoR/rulelist
             config
         else
             echo -e "${red}Please enter the correct number${plain}"
-            config
+            configuration
         fi
     else
         echo -e "${red}Please enter the correct number${plain}"
