@@ -33,6 +33,7 @@ yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
 yum install docker-ce docker-ce-cli containerd.io -y
+yum install unzip
 systemctl start docker
 systemctl enable docker
 
@@ -50,6 +51,7 @@ sudo add-apt-repository \
    $(lsb_release -cs) \
    stable"
 sudo apt-get install docker-ce docker-ce-cli containerd.io -y
+apt install unzip
 systemctl start docker
 systemctl enable docker
     fi
@@ -77,7 +79,7 @@ install_aikor() {
             exit 1
         fi
         echo -e "The latest version of AikoR has been detected：${last_version}，Start the installation"
-        wget -N --no-check-certificate -O /usr/local/AikoR/AikoR-linux.zip https://github.com/AikoCute-Offical/AikoR-DockerInstall/releases/download/${last_version}/AikoR-DockerInstall.zip
+        wget -N --no-check-certificate -O /usr/local/AikoR/AikoR.zip https://github.com/AikoCute-Offical/AikoR-DockerInstall/releases/download/${last_version}/AikoR-DockerInstall.zip
         if [[ $? -ne 0 ]]; then
             echo -e "${red}AikoR download failed, make sure your server can download Github files${plain}"
             exit 1
@@ -86,14 +88,14 @@ install_aikor() {
         last_version=$1
         url="https://github.com/AikoCute-Offical/AikoR-DockerInstall/releases/download/${last_version}/AikoR-DockerInstall.zip"
         echo -e "AikoR starts up v$1"
-        wget -N --no-check-certificate -O /usr/local/AikoR/AikoR-linux.zip ${url}
+        wget -N --no-check-certificate -O /usr/local/AikoR/AikoR.zip ${url}
         if [[ $? -ne 0 ]]; then
             echo -e "${red}Download AikoR v$1 Failed, make sure this version exists${plain}"
             exit 1
         fi
     fi
 
-    unzip AikoR-linux.zip
+    unzip AikoR.zip
     rm AikoR-linux.zip -f
     chmod +x AikoR
     mkdir /etc/AikoR/ -p
