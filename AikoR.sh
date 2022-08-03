@@ -78,6 +78,7 @@ install_aikor() {
         fi
         echo -e "The latest version of AikoR has been detected：${last_version}，Start the installation"
         wget -N --no-check-certificate -O /usr/local/AikoR/AikoR-linux.zip https://github.com/AikoCute-Offical/AikoR-DockerInstall/releases/download/${last_version}/AikoR-DockerInstall.zip
+        if [[ $? -ne 0 ]]; then
             echo -e "${red}AikoR download failed, make sure your server can download Github files${plain}"
             exit 1
         fi
