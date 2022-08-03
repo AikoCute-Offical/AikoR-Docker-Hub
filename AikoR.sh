@@ -116,19 +116,19 @@ install_aikor() {
     fi
 
     if [[ ! -f /etc/AikoR/dns.json ]]; then
-        cp AikoR/dns.json /etc/AikoR/AikoR
+        cp AikoR-DockerInstall/AikoR/dns.json /etc/AikoR/AikoR
     fi
     if [[ ! -f /etc/AikoR/route.json ]]; then
-        cp AikoR/route.json /etc/AikoR/AikoR
+        cp AikoR-DockerInstall/AikoR/route.json /etc/AikoR/AikoR
     fi
     if [[ ! -f /etc/AikoR/custom_outbound.json ]]; then
-        cp AikoR/custom_outbound.json /etc/AikoR/AikoR
+        cp AikoR-DockerInstall/AikoR/custom_outbound.json /etc/AikoR/AikoR
     fi
     if [[ ! -f /etc/AikoR/AikoR/rulelist ]]; then
-        cp AikoR/rulelist /etc/AikoR/AikoR
+        cp AikoR-DockerInstall/AikoR/rulelist /etc/AikoR/AikoR
     fi
     if [[ ! -f /etc/AikoR/docker-compose.yml ]]; then
-        cp docker-compose.yml /etc/AikoR
+        cp AikoR-DockerInstall/ docker-compose.yml /etc/AikoR
     fi
 
     
