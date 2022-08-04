@@ -103,7 +103,7 @@ install_aikor() {
     echo -e "${green}AikoR ${last_version}${plain} The installation is complete, it is already set to start automatically"
 
     if [[ ! -f /etc/AikoR/AikoR/aiko.yml ]]; then
-        cp aiko.yml /etc/AikoR/AikoR
+        cp AikoR-DockerInstall/AikoR/aiko.yml /etc/AikoR/AikoR
         echo -e ""
         echo -e "New installation, please refer to previous tutorial：https://github.com/AikoCute-Offical/AikoR，Configure required content"
     else
@@ -114,7 +114,11 @@ install_aikor() {
             echo -e "${red}AikoR May not start, please use the following AikoR log Check the log information, if it fails to start, the configuration format may have been changed, please go to the wiki to check：https://github.com/AikoCute-Offical/AikoR${plain}"
         fi
     fi
-
+    
+    cd 
+    if [[ ! -f /etc/AikoR/docker-compose.yml ]]; then
+        cp AikoR-DockerInstall/docker-compose.yml /etc/AikoR
+    fi
     if [[ ! -f /etc/AikoR/dns.json ]]; then
         cp AikoR-DockerInstall/AikoR/dns.json /etc/AikoR/AikoR
     fi
@@ -127,9 +131,7 @@ install_aikor() {
     if [[ ! -f /etc/AikoR/AikoR/rulelist ]]; then
         cp AikoR-DockerInstall/AikoR/rulelist /etc/AikoR/AikoR
     fi
-    if [[ ! -f /etc/AikoR/docker-compose.yml ]]; then
-        cp AikoR-DockerInstall/ docker-compose.yml /etc/AikoR
-    fi
+
 
     
     curl -o /usr/bin/AikoR -Ls https://raw.githubusercontent.com/AikoCute-Offical/AikoR-DockerInstall/master/AikoR.sh
