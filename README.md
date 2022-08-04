@@ -15,11 +15,7 @@ AikoR Projects
 </div>
 
 # Multiple languages supported AikoR
-1: Description by English [English](https://github.com/AikoCute-Offical/AikoR-Install/tree/en) 
-
-2: Description by Chinese [Chinese](https://github.com/AikoCute-Offical/AikoR-Install/tree/zh)
-
-3: Description by Vietnamese [Vietnamese](https://github.com/AikoCute-Offical/AikoR-Install/tree/vi)
+- Comming Soon 
 
 # Installation guide
 1 : Install via docker
