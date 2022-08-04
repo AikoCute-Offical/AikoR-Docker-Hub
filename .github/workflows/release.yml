@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-    - release
+    - master
   release:
     types: [published]
 
@@ -19,7 +19,7 @@ jobs:
         run: |
           mkdir Build-AikoR
           cd Build-AikoR   
-          git clone -b release https://github.com/AikoCute-Offical/AikoR-DockerInstall.git
+          git clone https://github.com/AikoCute-Offical/AikoR-DockerInstall.git
 
       - name: Create ZIP archive
         shell: bash
