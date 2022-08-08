@@ -118,7 +118,7 @@ git clone https://github.com/AikoCute-Offical/AikoR-DockerInstall
 cd AikoR-DockerInstall
 ```
 
-- Edit config aiko.yml
+- Edit config aiko.json
 
 - Run Docker Compose
 ```
