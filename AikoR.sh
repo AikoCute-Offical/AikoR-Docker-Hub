@@ -340,7 +340,7 @@ show_config() {
 
     cd $AikoR_PATH
     
-    PANEL_TYPE=$(cat aiko.yml | grep "panel_type" | awk '{print $2}')
+    PANEL_TYPE=$(cat aiko.yml | grep "panel_type" | awk -F ':' '{print $2 $3}' | awk -F '"' '{print $2}')
     WEB_URL=$(cat aiko.yml | grep "ApiHost" | awk -F ':' '{print $2 $3}' | awk -F '"' '{print $2}')
     WEB_API_KEY=$(cat aiko.yml | grep "ApiKey" | awk -F ':' '{print $2}' | awk -F '"' '{print $2}')
     NODE_IP=$(curl -s ip.sb)
@@ -354,6 +354,7 @@ show_config() {
     CLOUDFLARE_API_KEY=$(cat aiko.yml | grep "CLOUDFLARE_API_KEY" | awk -F ':' '{print $2}')
 
     echo -e "
+    Tên bản điều khiển:${yellow}${PANEL_TYPE}${plain}
     Tên miền front-end WEB:${green}${WEB_URL}${plain}
     khóa api WEB:${green}${WEB_API_KEY}${plain}
     Node IP:${green}${NODE_IP}${plain}
