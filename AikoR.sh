@@ -138,7 +138,7 @@ modify_AikoR_config() {
 
     # modify aiko.yml
     ## modify v2board info
-    echo -e "> Sửa đổi tên miền Xflash"
+    echo -e "> Sửa đổi tên miền V2board"
     read -e -r -p "Vui lòng nhập tên miền v2board (mặc định:${V2BOARD_URL}）：" input
     if [[ $input != "" ]]; then
         V2BOARD_URL=$input
