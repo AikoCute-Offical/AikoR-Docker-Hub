@@ -248,7 +248,7 @@ modify_AikoR_config() {
     # replace aiko.yml
     mv /tmp/aiko.yml $AikoR_PATH/aiko.yml
     mv /tmp/docker-compose.yml $AikoR_PATH/docker-compose.yml
-    echo -e "AikoR配置 ${green}Sửa đổi thành công, vui lòng đợi khởi động lại có hiệu lực${plain}"
+    echo -e "Cấu hình AikoR ${green}Sửa đổi thành công, vui lòng đợi khởi động lại có hiệu lực${plain}"
     # get NODE_IP
     NODE_IP=`curl -s https://ipinfo.io/ip`
     
