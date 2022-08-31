@@ -19,10 +19,11 @@ os_arch=""
 Get_Docker_URL="https://get.docker.com"
 GITHUB_URL="github.com"
 
-# Vui lòng điền vào tên miền v2board của bạn, ví dụ: https://v2board.com/
-V2BOARD_URL="https://v2board.com/"
+# Vui lòng điền vào tên miền $PANEL_TYPE của bạn, ví dụ: https://$PANEL_TYPE.com/
+$PANEL_TYPE_URL="https://aikocute.com/"
+PANEL_TYPE="Xflash"
 # Vui lòng điền vào khóa api giao diện người dùng, ví dụ: 123456789
-V2BOARD_API_KEY="your_api_key"
+$PANEL_TYPE_API_KEY="your_api_key"
 
 pre_check() {
     # check root
@@ -137,25 +138,31 @@ modify_AikoR_config() {
     fi
 
     # modify aiko.yml
-    ## modify v2board info
-    echo -e "> Sửa đổi tên miền V2board"
-    read -e -r -p "Vui lòng nhập tên miền v2board (mặc định:${V2BOARD_URL}）：" input
-    if [[ $input != "" ]]; then
-        V2BOARD_URL=$input
+    ## modify $PANEL_TYPE info
+    echo -e "> Sửa đổi thông tin Bản điều khiển"
+    read -e -r -p "Nhập loại bản điều khiển: " input
+    if [[ $input == "" ]]; then
+        PANEL_TYPE=$input
     fi
-    read -e -r -p "Vui lòng nhập khóa api v2board (mặc định:${V2BOARD_API_KEY}）：" input
+    echo -e "> Sửa đổi tên miền $PANEL_TYPE"
+    read -e -r -p "Vui lòng nhập tên miền $PANEL_TYPE (mặc định:${$PANEL_TYPE_URL}）：" input
     if [[ $input != "" ]]; then
-        V2BOARD_API_KEY=$input
+        $PANEL_TYPE_URL=$input
     fi
-    V2BOARD_URL=$(echo $V2BOARD_URL | sed -e 's/[]\/&$*.^[]/\\&/g')
-    V2BOARD_API_KEY=$(echo $V2BOARD_API_KEY | sed -e 's/[]\/&$*.^[]/\\&/g')
-    sed -i "s/USER_V2BOARD_DOMAIN/${V2BOARD_URL}/g" /tmp/aiko.yml
-    sed -i "s/USER_V2BOARD_API_KEY/${V2BOARD_API_KEY}/g" /tmp/aiko.yml
-    echo -e "> Tên miền hiện tại: ${green}${V2BOARD_URL}${plain}"
-    echo -e "> Khóa api hiện tại: ${green}${V2BOARD_API_KEY}${plain}"
+    read -e -r -p "Vui lòng nhập khóa api $PANEL_TYPE (mặc định:${$PANEL_TYPE_API_KEY}）：" input
+    if [[ $input != "" ]]; then
+        $PANEL_TYPE_API_KEY=$input
+    fi
+    PANEL_TYPE=$(echo $PANEL_TYPE | sed -e 's/[]\/&$*.^[]/\\&/g')
+    $PANEL_TYPE_URL=$(echo $$PANEL_TYPE_URL | sed -e 's/[]\/&$*.^[]/\\&/g')
+    $PANEL_TYPE_API_KEY=$(echo $$PANEL_TYPE_API_KEY | sed -e 's/[]\/&$*.^[]/\\&/g')
+    sed -i "s/USER_$PANEL_TYPE_DOMAIN/${$PANEL_TYPE_URL}/g" /tmp/aiko.yml
+    sed -i "s/USER_$PANEL_TYPE_API_KEY/${$PANEL_TYPE_API_KEY}/g" /tmp/aiko.yml
+    echo -e "> Tên miền hiện tại: ${green}${$PANEL_TYPE_URL}${plain}"
+    echo -e "> Khóa api hiện tại: ${green}${$PANEL_TYPE_API_KEY}${plain}"
 
     ## read NODE_ID
-    read -e -r -p "Vui lòng nhập ID nút (phải giống với ID do v2board đặt):" input
+    read -e -r -p "Vui lòng nhập ID nút (phải giống với ID do $PANEL_TYPE đặt):" input
     NODE_ID=$input
     echo -e "ID nút mới là: ${green}${NODE_ID}${plain}"
     sed -i "s/USER_NODE_ID/${NODE_ID}/g" /tmp/aiko.yml
@@ -248,7 +255,7 @@ modify_AikoR_config() {
     # replace aiko.yml
     mv /tmp/aiko.yml $AikoR_PATH/aiko.yml
     mv /tmp/docker-compose.yml $AikoR_PATH/docker-compose.yml
-    echo -e "AikoR配置 ${green}Sửa đổi thành công, vui lòng đợi khởi động lại có hiệu lực${plain}"
+    echo -e "Cấu hình AikoR ${green}Sửa đổi thành công, vui lòng đợi khởi động lại có hiệu lực${plain}"
     # get NODE_IP
     NODE_IP=`curl -s https://ipinfo.io/ip`
     
@@ -333,8 +340,9 @@ show_config() {
 
     cd $AikoR_PATH
     
-    V2BOARD_URL=$(cat aiko.yml | grep "ApiHost" | awk -F ':' '{print $2 $3}' | awk -F '"' '{print $2}')
-    V2BOARD_API_KEY=$(cat aiko.yml | grep "ApiKey" | awk -F ':' '{print $2}' | awk -F '"' '{print $2}')
+    PANEL_TYPE=$(cat aiko.yml | grep "panel_type" | awk '{print $2}')
+    $PANEL_TYPE_URL=$(cat aiko.yml | grep "ApiHost" | awk -F ':' '{print $2 $3}' | awk -F '"' '{print $2}')
+    $PANEL_TYPE_API_KEY=$(cat aiko.yml | grep "ApiKey" | awk -F ':' '{print $2}' | awk -F '"' '{print $2}')
     NODE_IP=$(curl -s ip.sb)
     NODE_ID=$(cat aiko.yml | grep "NodeID" | awk -F ':' '{print $2}')
     NODE_TYPE=$(cat aiko.yml | grep "NodeType" | awk -F ':' '{print $2}' | awk -F ' ' '{print $1}')
@@ -346,8 +354,8 @@ show_config() {
     CLOUDFLARE_API_KEY=$(cat aiko.yml | grep "CLOUDFLARE_API_KEY" | awk -F ':' '{print $2}')
 
     echo -e "
-    Tên miền front-end v2board:${green}${V2BOARD_URL}${plain}
-    khóa api v2board:${green}${V2BOARD_API_KEY}${plain}
+    Tên miền front-end $PANEL_TYPE:${green}${$PANEL_TYPE_URL}${plain}
+    khóa api $PANEL_TYPE:${green}${$PANEL_TYPE_API_KEY}${plain}
     Node IP:${green}${NODE_IP}${plain}
     ID nút:${green}${NODE_ID}${plain}
     Loại nút:${green}${NODE_TYPE}${plain}
