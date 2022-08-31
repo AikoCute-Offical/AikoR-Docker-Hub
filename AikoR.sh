@@ -151,13 +151,13 @@ modify_AikoR_config() {
     V2BOARD_API_KEY=$(echo $V2BOARD_API_KEY | sed -e 's/[]\/&$*.^[]/\\&/g')
     sed -i "s/USER_V2BOARD_DOMAIN/${V2BOARD_URL}/g" /tmp/aiko.yml
     sed -i "s/USER_V2BOARD_API_KEY/${V2BOARD_API_KEY}/g" /tmp/aiko.yml
-    echo -e "> 当前域名: ${green}${V2BOARD_URL}${plain}"
-    echo -e "> 当前api key: ${green}${V2BOARD_API_KEY}${plain}"
+    echo -e "> Tên miền hiện tại: ${green}${V2BOARD_URL}${plain}"
+    echo -e "> Khóa api hiện tại: ${green}${V2BOARD_API_KEY}${plain}"
 
     ## read NODE_ID
     read -e -r -p "Vui lòng nhập ID nút (phải giống với ID do v2board đặt):" input
     NODE_ID=$input
-    echo -e "节点ID为: ${green}${NODE_ID}${plain}"
+    echo -e "ID nút mới là: ${green}${NODE_ID}${plain}"
     sed -i "s/USER_NODE_ID/${NODE_ID}/g" /tmp/aiko.yml
 
     ## read NODE_TYPE
