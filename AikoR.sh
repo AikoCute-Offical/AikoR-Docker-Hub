@@ -447,5 +447,6 @@ show_menu() {
     esac
 }
 
+clear
 pre_check
 show_menu
