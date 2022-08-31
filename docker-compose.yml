@@ -1,0 +1,11 @@
+
+version: "3"
+
+services:
+  aikor:
+    image: aikocute/aikor:latest
+    restart: always
+    network_mode: "host"
+    volumes:
+      - ./AikoR/:/etc/AikoR/
+      - ./aiko.yml:/etc/AikoR/aiko.yml
