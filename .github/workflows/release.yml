@@ -119,13 +119,13 @@ jobs:
           echo "::set-output name=ASSET_NAME::$_NAME"
           echo "ASSET_NAME=$_NAME" >> $GITHUB_ENV
 
-      - name: Get project dependencies
-        run: go mod download
-    
+      - name: Create Folder
+        run: mkdir build_assets
+        
       - name: Prepare to release
         run: |
-          cp ${GITHUB_WORKSPACE}/IP2LOCATION-LITE-DB3.BIN ./build_assets/IP2LOCATION-LITE-DB3.BIN
-          cp ${GITHUB_WORKSPACE}/config.json ./build_assets/config.json
+          cp ${GITHUB_WORKSPACE}/AikoR ./build_assets/AikoR
+          cp ${GITHUB_WORKSPACE}/docker-compose.yml ./build_assets/docker-compose.yml
       - name: Create ZIP archive
         shell: bash
         run: |
