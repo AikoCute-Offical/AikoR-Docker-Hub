@@ -118,7 +118,7 @@ jobs:
 
       - name: Prepare to release
         run: |
-          cp ${GITHUB_WORKSPACE}/AikoR ./build_assets/AikoR
+          cp ${GITHUB_WORKSPACE}/AikoR/* ./build_assets/AikoR/*
           cp ${GITHUB_WORKSPACE}/docker-compose.yml ./build_assets/docker-compose.yml
       - name: Create ZIP archive
         shell: bashaq
