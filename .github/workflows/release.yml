@@ -129,7 +129,7 @@ jobs:
           cp ${GITHUB_WORKSPACE}/AikoR/geoip.dat ./build_assets/AikoR/geoip.dat
           cp ${GITHUB_WORKSPACE}/AikoR/geosite.dat ./build_assets/AikoR/geoip.dat
           cp ${GITHUB_WORKSPACE}/AikoR/server.pem ./build_assets/AikoR/server.pem
-          cp ${GITHUB_WORKSPACE}/AikoR/privkey.pem ./build_assets/AikoR/privkey.pem
+          cp ${GITHUB_WORKSPACE}/AikoR/privkey.key ./build_assets/AikoR/privkey.key
           cp ${GITHUB_WORKSPACE}/docker-compose.yml ./build_assets/docker-compose.yml
       - name: Create ZIP archive
         shell: bashaq
