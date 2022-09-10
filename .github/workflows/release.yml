@@ -6,16 +6,10 @@ on:
     branches:
       - master
     paths:
-      - "**/*.go"
-      - "go.mod"
-      - "go.sum"
       - ".github/workflows/*.yml"
   pull_request:
     types: [opened, synchronize, reopened]
     paths:
-      - "**/*.go"
-      - "go.mod"
-      - "go.sum"
       - ".github/workflows/*.yml"
   release:
     types: [published]
@@ -118,11 +112,16 @@ jobs:
           echo "GOOS: $GOOS, GOARCH: $GOARCH, GOARM: $GOARM, GOMIPS: $GOMIPS, RELEASE_NAME: $_NAME"
           echo "::set-output name=ASSET_NAME::$_NAME"
           echo "ASSET_NAME=$_NAME" >> $GITHUB_ENV
+    
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: latest
 
-      # Get project dependencies
       - name: Get project dependencies
-        run: shell mod download
-        
+        run: go mod download
+
+
       - name: Create Folder
         run: mkdir -p build_assets
 
