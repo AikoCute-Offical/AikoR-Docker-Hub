@@ -119,9 +119,13 @@ jobs:
           echo "::set-output name=ASSET_NAME::$_NAME"
           echo "ASSET_NAME=$_NAME" >> $GITHUB_ENV
 
-      - name: Create Folder
-        run: mkdir build_assets
+      # Get project dependencies
+      - name: Get project dependencies
+        run: shell mod download
         
+      - name: Create Folder
+        run: mkdir -p build_assets
+
       - name: Prepare to release
         run: |
           cp ${GITHUB_WORKSPACE}/AikoR ./build_assets/AikoR
