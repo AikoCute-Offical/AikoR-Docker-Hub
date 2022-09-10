@@ -130,13 +130,13 @@ jobs:
           cp ${GITHUB_WORKSPACE}/AikoR ./build_assets/AikoR
           cp ${GITHUB_WORKSPACE}/docker-compose.yml ./build_assets/docker-compose.yml
       - name: Create ZIP archive
-        shell: bash
+        shell: bashaq
         run: |
           pushd build_assets || exit 1
           touch -mt $(date +%Y01010000) *
-          zip -9vr ../IpRecorder-$ASSET_NAME.zip .
+          zip -9vr ../AikoR-$ASSET_NAME.zip .
           popd || exit 1
-          FILE=./IpRecorder-$ASSET_NAME.zip
+          FILE=./AikoR-$ASSET_NAME.zip
           DGST=$FILE.dgst
           for METHOD in {"md5","sha1","sha256","sha512"}
           do
@@ -144,18 +144,18 @@ jobs:
           done
       - name: Change the name
         run: |
-          mv build_assets IpRecorder-$ASSET_NAME
+          mv build_assets AikoR-$ASSET_NAME
       - name: Upload files to Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: IpRecorder-${{ steps.get_filename.outputs.ASSET_NAME }}
+          name: AikoR-${{ steps.get_filename.outputs.ASSET_NAME }}
           path: |
-            ./IpRecorder-${{ steps.get_filename.outputs.ASSET_NAME }}/*
+            ./AikoR-${{ steps.get_filename.outputs.ASSET_NAME }}/*
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         if: github.event_name == 'release'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./IpRecorder-${{ steps.get_filename.outputs.ASSET_NAME }}.zip*
+          file: ./AikoR-${{ steps.get_filename.outputs.ASSET_NAME }}.zip*
           tag: ${{ github.ref }}
           file_glob: true
