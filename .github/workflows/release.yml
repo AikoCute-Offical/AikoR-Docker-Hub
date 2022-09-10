@@ -114,7 +114,10 @@ jobs:
           echo "ASSET_NAME=$_NAME" >> $GITHUB_ENV
 
       - name: Create Folder
-        run: mkdir -p build_assets
+        run: | 
+          mkdir -p build_assets
+          cd build_assets
+          mkdir -p AikoR
 
       - name: Prepare to release
         run: |
