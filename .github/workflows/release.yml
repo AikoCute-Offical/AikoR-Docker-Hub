@@ -132,7 +132,7 @@ jobs:
           cp ${GITHUB_WORKSPACE}/AikoR/privkey.key ./build_assets/AikoR/privkey.key
           cp ${GITHUB_WORKSPACE}/docker-compose.yml ./build_assets/docker-compose.yml
       - name: Create ZIP archive
-        shell: bashaq
+        shell: bash
         run: |
           pushd build_assets || exit 1
           touch -mt $(date +%Y01010000) *
