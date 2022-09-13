@@ -110,7 +110,7 @@ Step 3 : Custom Docker Compose
 
 - Download the configuration library
 ```
-git clone https://github.com/AikoCute-Offical/AikoR-DockerInstall
+git clone https://github.com/AikoCute-Offical/AikoR-Docker-Hub
 ```
 
 - Library access
